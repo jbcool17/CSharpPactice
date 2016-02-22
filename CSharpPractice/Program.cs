@@ -13,6 +13,10 @@ namespace CSharpPractice
             Program program = new Program();
 
             Console.WriteLine( program.OutputMessage("This is a message!") );
+
+            Calc calc = new Calc();
+            Console.WriteLine( calc.AddNum(100, 99) );
+            Console.WriteLine( calc.SubNum(5, 10) );
         }
 
         public string OutputMessage(string message)
