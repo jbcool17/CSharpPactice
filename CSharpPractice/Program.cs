@@ -19,7 +19,13 @@ namespace CSharpPractice
             Console.WriteLine( calc.AddNum(100, 99) );
             Console.WriteLine( calc.SubNum(5, 10) );
 
-            Dictionary dictionary = new Dictionary();
+            Person personOne = new Person();
+            Console.WriteLine(personOne.name);
+
+            Person personTwo = new Person();
+            personTwo.SetName("JB Cool");
+            Console.WriteLine(personTwo.name);
+            Console.WriteLine(personTwo.GetRandName());
             
         }
 

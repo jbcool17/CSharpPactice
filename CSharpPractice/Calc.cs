@@ -8,14 +8,24 @@ namespace CSharpPractice
 {
     public class Calc
     {
-        public int AddNum( int a, int b)
+        public int AddNum(int a, int b)
         {
             return a + b;
         }
 
-        public int SubNum( int a, int b)
+        public int SubNum(int a, int b)
         {
             return a - b;
+        }
+
+        public int DivNum(int a, int b)
+        {
+            return a / b;
+        }
+
+        public int MultNum(int a, int b)
+        {
+            return a * b;
         }
     }
 }
