@@ -12,6 +12,7 @@ namespace CSharpPractice
         static void Main(string[] args)
         {
             Program program = new Program();
+            HangMan gameOne = new HangMan();
 
             //Console.WriteLine( program.OutputMessage("This is a message!") );
 
@@ -27,21 +28,57 @@ namespace CSharpPractice
             //Console.WriteLine(personTwo.name);
             //Console.WriteLine(personTwo.GetRandName());
 
-            Console.WriteLine("Print out a word.");
-            String word = Console.ReadLine();
+            string randWord = gameOne.GetRandWord();
+            string word = "default";
+            int score = gameOne.score;
 
-            Console.WriteLine("This is the word: " + word);
-            program.OutputMessage(word);
+            Console.WriteLine("Guess a word from this list: ");
+            while ( randWord != word)
+            {
+                
+                Console.WriteLine("===========");
+                gameOne.GetWords();
+                Console.WriteLine("===========");
+                word = Console.ReadLine();
+                if (word == randWord)
+                {
+                    program.OutputMessage("It matches!");
+                }
+                else if ( score < 3)
+                {
+                    
+                    Console.WriteLine("-----------");
+                    program.OutputMessage("Sorry. You Loose :-( :: Score: " + score);
+                    program.OutputMessage("The word was: " + randWord);
+                    randWord = word;
 
-            if (word == "hello")
-                program.OutputMessage("Yeaaa!");
-
+                }
+                else 
+                {
+                    score -= 1;
+                    Console.WriteLine("-----------");
+                    program.OutputMessage("Sorry. Please choose again :-( :: Score: " + score);
+                }
+                
+                
+            }
+           
                         
+           // program.OutputMessage(randWord);
+
+
+
+            
+                
+            
+            
+
+
         }
 
         public string OutputMessage(string message)
         {
-            Console.WriteLine("Your message is: " + message);
+            Console.WriteLine("Output: " + message);
 
             return message;
         }
