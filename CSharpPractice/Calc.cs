@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpPractice
 {
-    public class Calc
+    public class Calc : ICalculator
     {
         public int AddNum(int a, int b)
         {
