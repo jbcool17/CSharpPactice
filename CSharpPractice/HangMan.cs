@@ -65,15 +65,20 @@ namespace CSharpPractice
             addsCorrectLetter(guess[0]);
         }
 
-        internal void checkForWinner()
+        public bool checkForWinner()
         {
+            var output = true;
             if ( blankWord == word)
             {
+                output = true;
                 Console.WriteLine("You won!");
             } else
             {
-                Console.WriteLine("Sorry please try again");
+                output = false;
+                Console.WriteLine("Sorry didn't win yet.");
             }
+
+            return output;
         }
 
         private void addsCorrectLetter(char letter)
