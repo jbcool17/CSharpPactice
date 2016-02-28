@@ -18,6 +18,7 @@ namespace CSharpPractice
             Program program = new Program();
             HangMan gameOne = new HangMan();
 
+            //Testing JSONs
             //WordData wordData = JsonConvert.DeserializeObject<WordData>(File.ReadAllText(@"words.json"));
             ////JObject o = JObject.Parse(wordData);
 
