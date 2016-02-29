@@ -13,6 +13,8 @@ namespace CSharpPractice
         public int score;
         public int guesses;
         public List<char> guessedLetters = new List<char>();
+        public int wrongGuesses;
+        public List<string> man = new List<string>();
         
         public string blankWord;
         
@@ -22,13 +24,19 @@ namespace CSharpPractice
             word = GetRandWord();
             blankWord = CreateBlankWord(word);
             score = 0;
-            guesses = 10;
+            guesses = 9;
+
+            TheMan theMan = new TheMan();
+            theMan.buildMan();
+            man = theMan.outPutMan();
+           
+
 
             //Welcome Message
             Console.WriteLine("Welcome to HangMan!");
             Console.WriteLine("You have " + guesses + " guesses.");
-            Console.WriteLine("The Word: " + blankWord);
             Console.WriteLine("Pick a letter!");
+            Console.WriteLine("The Word: " + blankWord);
             Console.WriteLine("------------------------------------------");
 
         }
@@ -66,19 +74,33 @@ namespace CSharpPractice
 
         public void checkForLetter(string command)
         {
-            
-            char[] array = word.ToCharArray();
+                        
             char[] guess = command.ToCharArray();
             
-            if ( guessedLetters.IndexOf(guess[0]) < 0)
-            {
-                guessedLetters.Add(guess[0]);
-                addsCorrectLetter(guess[0]);
-
-            } else
-            {
+            //First check if already guessed
+            if ( guessedLetters.IndexOf(guess[0]) >= 0 )
+            {             
+                wrongGuesses += 1;
                 score -= 1;
+                guessedLetters.Add(guess[0]);
                 Console.WriteLine("You already guessed that!");
+            }
+            else
+            {
+                //Check if not in word else
+                if ( word.ToList<char>().IndexOf(guess[0]) == -1)
+                {
+                    wrongGuesses += 1;
+                    score -= 1;
+                    guessedLetters.Add(guess[0]);
+                    Console.WriteLine("Noped!");
+                }
+                else
+                {
+                    guessedLetters.Add(guess[0]);
+                    addsCorrectLetter(guess[0]);
+                }
+                
             }
             
         }
