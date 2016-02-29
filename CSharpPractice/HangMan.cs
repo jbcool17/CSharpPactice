@@ -11,6 +11,7 @@ namespace CSharpPractice
         public string word;
         private static List<string> wordList = new List<string>() { "hello", "world", "dogs", "cats", "fish" };
         public int score;
+        public int guesses;
         public List<char> guessedLetters = new List<char>();
         
         public string blankWord;
@@ -21,6 +22,15 @@ namespace CSharpPractice
             word = GetRandWord();
             blankWord = CreateBlankWord(word);
             score = 0;
+            guesses = 10;
+
+            //Welcome Message
+            Console.WriteLine("Welcome to HangMan!");
+            Console.WriteLine("You have " + guesses + " guesses.");
+            Console.WriteLine("The Word: " + blankWord);
+            Console.WriteLine("Pick a letter!");
+            Console.WriteLine("------------------------------------------");
+
         }
                 
         public void GetWordsList()
@@ -56,26 +66,32 @@ namespace CSharpPractice
 
         public void checkForLetter(string command)
         {
+            
             char[] array = word.ToCharArray();
             char[] guess = command.ToCharArray();
-            guessedLetters.Add(guess[0]);
-                        
-            Console.WriteLine("Guessed Letter: " + string.Join(",", guessedLetters.ToArray()));
+            
+            if ( guessedLetters.IndexOf(guess[0]) < 0)
+            {
+                guessedLetters.Add(guess[0]);
+                addsCorrectLetter(guess[0]);
 
-            addsCorrectLetter(guess[0]);
+            } else
+            {
+                score -= 1;
+                Console.WriteLine("You already guessed that!");
+            }
+            
         }
 
         public bool checkForWinner()
         {
-            var output = true;
+            var output = false;
+
             if ( blankWord == word)
             {
                 output = true;
+                
                 Console.WriteLine("You won!");
-            } else
-            {
-                output = false;
-                Console.WriteLine("Sorry didn't win yet.");
             }
 
             return output;
@@ -91,7 +107,7 @@ namespace CSharpPractice
                     blankWord = blankWord.Remove(i, 1);
                     blankWord = blankWord.Insert(i, letter.ToString());
                     score += 1;
-                    Console.WriteLine("FOUND: " + blankWord);
+                    Console.WriteLine("LETTER FOUND!");
                 }                   
                
             }

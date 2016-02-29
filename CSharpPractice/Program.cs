@@ -15,68 +15,48 @@ namespace CSharpPractice
 
         static void Main(string[] args)
         {
-            Program program = new Program();
-            HangMan gameOne = new HangMan();
 
-            //Testing JSONs
-            //WordData wordData = JsonConvert.DeserializeObject<WordData>(File.ReadAllText(@"words.json"));
-            ////JObject o = JObject.Parse(wordData);
-
-            //using (StreamReader file = File.OpenText(@"words.json"))
-            //{
-            //    JsonSerializer serializer = new JsonSerializer();
-            //    WordData words = (WordData)serializer.Deserialize(file, typeof(WordData));
-            //    Console.WriteLine(words.lengths);
-            //}
-
-            //using (StreamReader file = File.OpenText(@"words.json"))
-            //{
-            //    JsonSerializer serializer = new JsonSerializer();
-            //    WordData wordData2 = (WordData)serializer.Deserialize(file, typeof(WordData));
-            //    //JObject o = JObject.Parse(wordData2);
-            //}
-
-           
-
+            HangMan game = new HangMan();
+            
             //Init Game
-            gameOne.init();
-            string randomWord = gameOne.word;
+            game.init();
+            string randomWord = game.word;
             string input;
-
-            //Opening Message
-            Console.WriteLine("Welcome to HangMan");
-            Console.WriteLine("Please guess a letter");            
-            Console.WriteLine("The Word: " + gameOne.blankWord);
-                       
-
+            
             //Game Loop
-            int guesses = 10;
+            int guesses = game.guesses;
+
             while (guesses > 0)
             {
                 input = Console.ReadLine();
-                gameOne.checkForLetter(input);
-
-                if (gameOne.checkForWinner())
-                    guesses = 1;
-                                     
-                guesses -= 1;
-
-                Console.WriteLine( "Guesses Left: " + guesses);
-                Console.WriteLine( "Score: " + gameOne.score);
+                Console.Clear();
+                game.checkForLetter(input);
+                
+                //check for Winner
+                if (game.checkForWinner())
+                {
+                    guesses = 0;
+                    Console.WriteLine("Winner");
+                }
+                else if (guesses == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("You lost man!");
+                }
+                else
+                {
+                    guesses -= 1;
+                    
+                    Console.WriteLine("Nothing yet...keep going");
+                    Console.WriteLine("You have " + guesses + " guesses left.");
+                }      
+                 
+                Console.WriteLine("Guessed Letters: " + string.Join(",", game.guessedLetters.ToArray()));
+                Console.WriteLine( "Score: " + game.score);
+                Console.WriteLine("The Word: " + game.blankWord);
+                Console.WriteLine("------------------------------------------");
             }
             
-        }
-
-        public string OutputMessage(string message)
-        {
-            Console.WriteLine("Output: " + message);
-
-            return message;
-        }
-
-        public string ConcatString(string strOne, string strTwo)
-        {
-            return strOne + strTwo;
-        }
+        }        
     }
 }
